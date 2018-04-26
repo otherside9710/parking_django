@@ -10,7 +10,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 
-class ClientesView(models.Model):
+class Clientes(models.Model):
     clie_codigo = models.AutoField(primary_key=True)
     clie_nombres = models.CharField(max_length=100, blank=True, null=True)
     clie_cedula = models.CharField(max_length=50, blank=True, null=True)
@@ -24,7 +24,7 @@ class ClientesView(models.Model):
         db_table = 'clientes'
 
 
-class ClientesVsCredencialesView(models.Model):
+class ClientesVsCredenciales(models.Model):
     clientes_clie_codigo = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='clientes_clie_codigo', primary_key=True)
     credenciales_cred_codigo = models.ForeignKey('Credenciales', models.DO_NOTHING, db_column='credenciales_cred_codigo')
 
@@ -34,7 +34,7 @@ class ClientesVsCredencialesView(models.Model):
         unique_together = (('clientes_clie_codigo', 'credenciales_cred_codigo'),)
 
 
-class CredencialesView(models.Model):
+class Credenciales(models.Model):
     cred_codigo = models.AutoField(primary_key=True)
     cred_cliente = models.IntegerField(blank=True, null=True)
     cred_usuario = models.IntegerField(blank=True, null=True)
@@ -44,7 +44,7 @@ class CredencialesView(models.Model):
         db_table = 'credenciales'
 
 
-class FacturasView(models.Model):
+class Facturas(models.Model):
     fact_codigo = models.AutoField(primary_key=True)
     clie_codigo = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='clie_codigo')
     usua_codigo = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='usua_codigo')
@@ -55,7 +55,7 @@ class FacturasView(models.Model):
         unique_together = (('fact_codigo', 'clie_codigo', 'usua_codigo'),)
 
 
-class ParqueoView(models.Model):
+class Parqueo(models.Model):
     par_codigo = models.AutoField(primary_key=True)
     par_vehiculo = models.CharField(max_length=50, blank=True, null=True)
     par_finicio = models.CharField(max_length=50, blank=True, null=True)
@@ -69,7 +69,7 @@ class ParqueoView(models.Model):
         unique_together = (('par_codigo', 'tari_codigo'),)
 
 
-class ParqueoVsClientesView(models.Model):
+class ParqueoVsClientes(models.Model):
     parqueo_par_codigo = models.ForeignKey(Parqueo, models.DO_NOTHING, db_column='parqueo_par_codigo', primary_key=True)
     clientes_clie_codigo = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='clientes_clie_codigo')
 
@@ -79,7 +79,7 @@ class ParqueoVsClientesView(models.Model):
         unique_together = (('parqueo_par_codigo', 'clientes_clie_codigo'),)
 
 
-class RolesView(models.Model):
+class Roles(models.Model):
     rol_codigo = models.AutoField(primary_key=True)
     rol_nombre = models.CharField(max_length=50, blank=True, null=True)
     rol_estado = models.CharField(max_length=1, blank=True, null=True)
@@ -89,7 +89,7 @@ class RolesView(models.Model):
         db_table = 'roles'
 
 
-class TarifasView(models.Model):
+class Tarifas(models.Model):
     tari_codigo = models.AutoField(primary_key=True)
     tari_vlrhora = models.FloatField(db_column='tari_vlrHora', blank=True, null=True)  # Field name made lowercase.
     tari_vlrdia = models.FloatField(db_column='tari_vlrDia', blank=True, null=True)  # Field name made lowercase.
@@ -99,7 +99,7 @@ class TarifasView(models.Model):
         db_table = 'tarifas'
 
 
-class TpVehiculoView(models.Model):
+class TpVehiculo(models.Model):
     tpv_codigo = models.AutoField(primary_key=True)
     tp_vehiculo = models.IntegerField()
     tp_modelo = models.CharField(max_length=100, blank=True, null=True)
@@ -109,7 +109,7 @@ class TpVehiculoView(models.Model):
         db_table = 'tp_vehiculo'
 
 
-class UsuariosView(models.Model):
+class Usuarios(models.Model):
     usua_codigo = models.AutoField(primary_key=True)
     usua_nombres = models.CharField(max_length=100, blank=True, null=True)
     usua_cedula = models.CharField(max_length=50, blank=True, null=True)
@@ -124,7 +124,7 @@ class UsuariosView(models.Model):
         unique_together = (('usua_codigo', 'rol_codigo'),)
 
 
-class UsuariosVsCredencialesView(models.Model):
+class UsuariosVsCredenciales(models.Model):
     usuarios_usua_codigo = models.ForeignKey(Usuarios, models.DO_NOTHING, db_column='usuarios_usua_codigo', primary_key=True)
     credenciales_cred_codigo = models.ForeignKey(Credenciales, models.DO_NOTHING, db_column='credenciales_cred_codigo')
 
@@ -134,7 +134,7 @@ class UsuariosVsCredencialesView(models.Model):
         unique_together = (('usuarios_usua_codigo', 'credenciales_cred_codigo'),)
 
 
-class VehiculosView(models.Model):
+class Vehiculos(models.Model):
     veh_codigo = models.AutoField(primary_key=True)
     veh_cliente = models.IntegerField(blank=True, null=True)
     veh_placa = models.CharField(max_length=50, blank=True, null=True)
@@ -147,7 +147,7 @@ class VehiculosView(models.Model):
         unique_together = (('veh_codigo', 'tpv_codigo'),)
 
 
-class VehiculosVsClientesView(models.Model):
+class VehiculosVsClientes(models.Model):
     vehiculos_veh_codigo = models.ForeignKey(Vehiculos, models.DO_NOTHING, db_column='vehiculos_veh_codigo', primary_key=True)
     clientes_clie_codigo = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='clientes_clie_codigo')
 
@@ -157,7 +157,7 @@ class VehiculosVsClientesView(models.Model):
         unique_together = (('vehiculos_veh_codigo', 'clientes_clie_codigo'),)
 
 
-class VehiculosVsParqueoView(models.Model):
+class VehiculosVsParqueo(models.Model):
     vehiculos_veh_codigo = models.ForeignKey(Vehiculos, models.DO_NOTHING, db_column='vehiculos_veh_codigo', primary_key=True)
     parqueo_par_codigo = models.ForeignKey(Parqueo, models.DO_NOTHING, db_column='parqueo_par_codigo')
 
@@ -167,7 +167,7 @@ class VehiculosVsParqueoView(models.Model):
         unique_together = (('vehiculos_veh_codigo', 'parqueo_par_codigo'),)
 
 
-class ZonasView(models.Model):
+class Zonas(models.Model):
     zona_codigo = models.AutoField(primary_key=True)
     zona_nombre = models.CharField(max_length=100, blank=True, null=True)
     par_codigo = models.ForeignKey(Parqueo, models.DO_NOTHING, db_column='par_codigo')
