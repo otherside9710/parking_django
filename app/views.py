@@ -7,6 +7,10 @@ from supra import views as supra
 import models
 from django import forms
 
+supra.SupraConf.body = False
+supra.SupraConf.template = False
+supra.SupraConf.ACCECC_CONTROL["allow"] = True
+
 class Login(supra.SupraSession):
 	pass
 # end class

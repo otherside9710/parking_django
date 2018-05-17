@@ -79,9 +79,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'parking',
-	'HOST': '192.168.0.20',
-	'USER': 'SYSTEM',
-	'PASSWORD': 'MANAGER*'
+	    'HOST': '186.87.135.186',
+	    'USER': 'SYSTEM',
+	    'PASSWORD': 'MANAGER*',
+        'PORT' : '3306'
     }
 }
 
